@@ -29,37 +29,37 @@ const Calendar: React.FC = () => {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return (
-    <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-10 p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-8">
+      <div className="flex justify-between items-center mb-8">
         <button
           onClick={prevMonth}
-          className="p-2 rounded-full hover:bg-gray-100"
+          className="p-3 rounded-full hover:bg-gray-100 transition-colors"
         >
-          <FaChevronLeft />
+          <FaChevronLeft className="text-xl" />
         </button>
-        <h2 className="text-xl font-bold text-gray-800">
+        <h2 className="text-3xl font-bold text-gray-800">
           {format(currentDate, "MMMM yyyy")}
         </h2>
         <button
           onClick={nextMonth}
-          className="p-2 rounded-full hover:bg-gray-100"
+          className="p-3 rounded-full hover:bg-gray-100 transition-colors"
         >
-          <FaChevronRight />
+          <FaChevronRight className="text-xl" />
         </button>
       </div>
 
-      <div className="grid grid-cols-7 mb-2">
+      <div className="grid grid-cols-7 mb-4">
         {weekDays.map((day) => (
           <div
             key={day}
-            className="text-center font-semibold text-gray-500 text-sm py-2"
+            className="text-center font-bold text-gray-500 text-lg uppercase tracking-wider py-2"
           >
             {day}
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 gap-px bg-gray-200 border border-gray-200 rounded-lg overflow-hidden">
         {days.map((day) => {
           const isToday = isSameDay(day, new Date());
           const isCurrentMonth = isSameMonth(day, monthStart);
@@ -68,12 +68,18 @@ const Calendar: React.FC = () => {
             <div
               key={day.toString()}
               className={`
-                h-10 w-10 flex items-center justify-center rounded-full mx-auto cursor-pointer text-sm transition-colors
-                ${!isCurrentMonth ? "text-gray-300" : "text-gray-800"}
-                ${isToday ? "bg-blue-500 text-white font-bold" : "hover:bg-gray-100"}
+                h-32 p-2 flex flex-col items-start justify-start cursor-pointer transition-colors
+                ${!isCurrentMonth ? "bg-gray-50 text-gray-400" : "bg-white text-gray-800"}
+                ${isToday && isCurrentMonth ? "bg-blue-50" : "hover:bg-gray-50"}
               `}
             >
-              {format(day, "d")}
+              <span
+                className={`text-sm font-semibold rounded-full w-8 h-8 flex items-center justify-center
+                  ${isToday ? "bg-blue-600 text-white shadow-sm" : ""}
+                `}
+              >
+                {format(day, "d")}
+              </span>
             </div>
           );
         })}
